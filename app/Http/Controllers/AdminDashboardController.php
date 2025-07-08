@@ -83,7 +83,21 @@ class AdminDashboardController extends Controller
             'age_rating' => 'required|in:E,E10+,T,M,AO',
             'image' => 'nullable|image|mimes:jpeg,jpg,png,webp|max:2048',
             'screenshots.*' => 'nullable|image|mimes:jpeg,jpg,png,webp|max:2048',
-            'system_requirements' => 'nullable|array'
+            'system_requirements' => 'nullable|array',
+            'system_requirements.minimum' => 'nullable|array',
+            'system_requirements.recommended' => 'nullable|array',
+            'system_requirements.minimum.os' => 'nullable|string|max:255',
+            'system_requirements.minimum.processor' => 'nullable|string|max:255',
+            'system_requirements.minimum.memory' => 'nullable|string|max:255',
+            'system_requirements.minimum.graphics' => 'nullable|string|max:255',
+            'system_requirements.minimum.storage' => 'nullable|string|max:255',
+            'system_requirements.minimum.network' => 'nullable|string|max:255',
+            'system_requirements.recommended.os' => 'nullable|string|max:255',
+            'system_requirements.recommended.processor' => 'nullable|string|max:255',
+            'system_requirements.recommended.memory' => 'nullable|string|max:255',
+            'system_requirements.recommended.graphics' => 'nullable|string|max:255',
+            'system_requirements.recommended.storage' => 'nullable|string|max:255',
+            'system_requirements.recommended.network' => 'nullable|string|max:255',
         ], [
             'title.required' => 'El título es obligatorio',
             'title.unique' => 'Ya existe un juego con ese título',
@@ -121,6 +135,8 @@ class AdminDashboardController extends Controller
                 }
             }
 
+            $systemRequirements = $this->processSystemRequirements($request->system_requirements);
+
             // Crear el juego
             $game = Game::create([
                 'title' => $request->title,
@@ -132,7 +148,7 @@ class AdminDashboardController extends Controller
                 'release_date' => $request->release_date,
                 'image_url' => $imageUrl,
                 'screenshots' => $screenshots,
-                'system_requirements' => $request->system_requirements,
+                'system_requirements' => $systemRequirements,
                 'age_rating' => $request->age_rating,
                 'category_id' => $request->category_id,
                 'is_active' => true
@@ -161,6 +177,31 @@ class AdminDashboardController extends Controller
         return view('admin.games.edit', compact('game', 'categories'));
     }
 
+    private function processSystemRequirements($requirements)
+    {
+        if (!$requirements) {
+            return null;
+        }
+
+        // Limpiar y estructurar los requerimientos
+        $processed = [];
+        
+        if (isset($requirements['minimum'])) {
+            $processed['minimum'] = array_filter($requirements['minimum'], function($value) {
+                return !empty(trim($value));
+            });
+        }
+        
+        if (isset($requirements['recommended'])) {
+            $processed['recommended'] = array_filter($requirements['recommended'], function($value) {
+                return !empty(trim($value));
+            });
+        }
+        
+        // Si no hay requerimientos, retornar null
+        return empty($processed) ? null : $processed;
+    }
+
     /**
      * Actualizar juego
      */
@@ -179,6 +220,21 @@ class AdminDashboardController extends Controller
             'age_rating' => 'required|in:E,E10+,T,M,AO',
             'image' => 'nullable|image|mimes:jpeg,jpg,png,webp|max:2048',
             'screenshots.*' => 'nullable|image|mimes:jpeg,jpg,png,webp|max:2048',
+            'system_requirements' => 'nullable|array',
+            'system_requirements.minimum' => 'nullable|array',
+            'system_requirements.recommended' => 'nullable|array',
+            'system_requirements.minimum.os' => 'nullable|string|max:255',
+            'system_requirements.minimum.processor' => 'nullable|string|max:255',
+            'system_requirements.minimum.memory' => 'nullable|string|max:255',
+            'system_requirements.minimum.graphics' => 'nullable|string|max:255',
+            'system_requirements.minimum.storage' => 'nullable|string|max:255',
+            'system_requirements.minimum.network' => 'nullable|string|max:255',
+            'system_requirements.recommended.os' => 'nullable|string|max:255',
+            'system_requirements.recommended.processor' => 'nullable|string|max:255',
+            'system_requirements.recommended.memory' => 'nullable|string|max:255',
+            'system_requirements.recommended.graphics' => 'nullable|string|max:255',
+            'system_requirements.recommended.storage' => 'nullable|string|max:255',
+            'system_requirements.recommended.network' => 'nullable|string|max:255',
         ]);
 
         try {
@@ -225,6 +281,8 @@ class AdminDashboardController extends Controller
                 $game->screenshots = $screenshots;
             }
 
+            $systemRequirements = $this->processSystemRequirements($request->system_requirements);
+
             // Actualizar otros campos
             $game->update([
                 'title' => $request->title,
@@ -235,7 +293,7 @@ class AdminDashboardController extends Controller
                 'release_date' => $request->release_date,
                 'category_id' => $request->category_id,
                 'age_rating' => $request->age_rating,
-                'system_requirements' => $request->system_requirements
+                'system_requirements' =>$systemRequirements 
             ]);
 
             Log::info("Juego actualizado por admin: {$game->title} (ID: {$game->id})");

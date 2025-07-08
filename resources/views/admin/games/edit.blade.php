@@ -19,7 +19,7 @@
             @method('PUT')
             <div class="form-row">
                 <div class="form-group">
-                    <label for="title"><span>🎮</span> Nombre del Juego</label>
+                    <label for="title"> Nombre del Juego</label>
                     <input type="text" name="title" id="title" class="form-control" value="{{ old('title', $game->title) }}" required maxlength="255" placeholder="Ej: The Witcher 3">
                     @error('title')<span class="error">{{ $message }}</span>@enderror
                 </div>
@@ -56,7 +56,7 @@
                     @error('developer')<span class="error">{{ $message }}</span>@enderror
                 </div>
                 <div class="form-group">
-                    <label for="publisher"><span>🏢</span> Publicador</label>
+                    <label for="publisher"> Publicador</label>
                     <input type="text" name="publisher" id="publisher" class="form-control" value="{{ old('publisher', $game->publisher) }}" required maxlength="255" placeholder="Ej: CD Projekt">
                     @error('publisher')<span class="error">{{ $message }}</span>@enderror
                 </div>
@@ -68,7 +68,7 @@
                     @error('release_date')<span class="error">{{ $message }}</span>@enderror
                 </div>
                 <div class="form-group">
-                    <label for="age_rating">Clasificación de Edad</label>
+                    <label for="age_rating"> Clasificación de Edad</label>
                     <select name="age_rating" id="age_rating" class="form-control" required>
                         <option value="">Selecciona</option>
                         <option value="E" {{ old('age_rating', $game->age_rating) == 'E' ? 'selected' : '' }}>E (Todos)</option>
@@ -81,12 +81,12 @@
                 </div>
             </div>
             <div class="form-group">
-                <label for="description">Descripción</label>
+                <label for="description"> Descripción</label>
                 <textarea name="description" id="description" class="form-control" rows="4" required maxlength="2000" placeholder="Describe el juego...">{{ old('description', $game->description) }}</textarea>
                 @error('description')<span class="error">{{ $message }}</span>@enderror
             </div>
             <div class="form-group">
-                <label for="screenshots">Capturas de pantalla (máx. 4 imágenes)</label>
+                <label for="screenshots"> Capturas de pantalla (máx. 5 imágenes)</label>
                 <input type="file" name="screenshots[]" id="screenshots" class="form-control" accept="image/*" multiple>
                 @if($game->screenshots && is_array($game->screenshots))
                     <div style="margin-top:8px; display:flex; gap:8px; flex-wrap:wrap;">
@@ -97,6 +97,106 @@
                 @endif
                 @error('screenshots')<span class="error">{{ $message }}</span>@enderror
             </div>
+
+            <!-- NUEVA SECCIÓN: REQUERIMIENTOS DEL SISTEMA -->
+            <div class="requirements-section">
+                <h3 class="requirements-title">💻 Requerimientos del Sistema</h3>
+                
+                <!-- Requerimientos Mínimos -->
+                <div class="requirements-group">
+                    <h4 class="requirements-subtitle">Requerimientos Mínimos</h4>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="min_os">Sistema Operativo</label>
+                            <input type="text" name="system_requirements[minimum][os]" id="min_os" class="form-control" 
+                                   value="{{ old('system_requirements.minimum.os', $game->system_requirements['minimum']['os'] ?? '') }}" 
+                                   placeholder="Ej: Windows 10 64-bit">
+                        </div>
+                        <div class="form-group">
+                            <label for="min_processor">Procesador</label>
+                            <input type="text" name="system_requirements[minimum][processor]" id="min_processor" class="form-control" 
+                                   value="{{ old('system_requirements.minimum.processor', $game->system_requirements['minimum']['processor'] ?? '') }}" 
+                                   placeholder="Ej: Intel Core i5-6600K">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="min_memory">Memoria RAM</label>
+                            <input type="text" name="system_requirements[minimum][memory]" id="min_memory" class="form-control" 
+                                   value="{{ old('system_requirements.minimum.memory', $game->system_requirements['minimum']['memory'] ?? '') }}" 
+                                   placeholder="Ej: 8 GB RAM">
+                        </div>
+                        <div class="form-group">
+                            <label for="min_graphics">Tarjeta Gráfica</label>
+                            <input type="text" name="system_requirements[minimum][graphics]" id="min_graphics" class="form-control" 
+                                   value="{{ old('system_requirements.minimum.graphics', $game->system_requirements['minimum']['graphics'] ?? '') }}" 
+                                   placeholder="Ej: NVIDIA GeForce GTX 960">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="min_storage">Almacenamiento</label>
+                            <input type="text" name="system_requirements[minimum][storage]" id="min_storage" class="form-control" 
+                                   value="{{ old('system_requirements.minimum.storage', $game->system_requirements['minimum']['storage'] ?? '') }}" 
+                                   placeholder="Ej: 50 GB">
+                        </div>
+                        <div class="form-group">
+                            <label for="min_network">Red (Opcional)</label>
+                            <input type="text" name="system_requirements[minimum][network]" id="min_network" class="form-control" 
+                                   value="{{ old('system_requirements.minimum.network', $game->system_requirements['minimum']['network'] ?? '') }}" 
+                                   placeholder="Ej: Conexión de banda ancha">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Requerimientos Recomendados -->
+                <div class="requirements-group">
+                    <h4 class="requirements-subtitle">Requerimientos Recomendados</h4>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="rec_os">Sistema Operativo</label>
+                            <input type="text" name="system_requirements[recommended][os]" id="rec_os" class="form-control" 
+                                   value="{{ old('system_requirements.recommended.os', $game->system_requirements['recommended']['os'] ?? '') }}" 
+                                   placeholder="Ej: Windows 11 64-bit">
+                        </div>
+                        <div class="form-group">
+                            <label for="rec_processor">Procesador</label>
+                            <input type="text" name="system_requirements[recommended][processor]" id="rec_processor" class="form-control" 
+                                   value="{{ old('system_requirements.recommended.processor', $game->system_requirements['recommended']['processor'] ?? '') }}" 
+                                   placeholder="Ej: Intel Core i7-8700K">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="rec_memory">Memoria RAM</label>
+                            <input type="text" name="system_requirements[recommended][memory]" id="rec_memory" class="form-control" 
+                                   value="{{ old('system_requirements.recommended.memory', $game->system_requirements['recommended']['memory'] ?? '') }}" 
+                                   placeholder="Ej: 16 GB RAM">
+                        </div>
+                        <div class="form-group">
+                            <label for="rec_graphics">Tarjeta Gráfica</label>
+                            <input type="text" name="system_requirements[recommended][graphics]" id="rec_graphics" class="form-control" 
+                                   value="{{ old('system_requirements.recommended.graphics', $game->system_requirements['recommended']['graphics'] ?? '') }}" 
+                                   placeholder="Ej: NVIDIA GeForce RTX 3060">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="rec_storage">Almacenamiento</label>
+                            <input type="text" name="system_requirements[recommended][storage]" id="rec_storage" class="form-control" 
+                                   value="{{ old('system_requirements.recommended.storage', $game->system_requirements['recommended']['storage'] ?? '') }}" 
+                                   placeholder="Ej: 50 GB SSD">
+                        </div>
+                        <div class="form-group">
+                            <label for="rec_network">Red (Opcional)</label>
+                            <input type="text" name="system_requirements[recommended][network]" id="rec_network" class="form-control" 
+                                   value="{{ old('system_requirements.recommended.network', $game->system_requirements['recommended']['network'] ?? '') }}" 
+                                   placeholder="Ej: Conexión de banda ancha">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <div class="form-actions">
                 <button type="submit" class="btn btn-primary">Actualizar Juego</button>
                 <a href="{{ route('admin.games') }}" class="btn btn-secondary">Cancelar</a>
@@ -104,6 +204,38 @@
         </form>
     </div>
 </div>
+
+<script>
+// Auto-llenar requerimientos recomendados basados en los mínimos
+document.addEventListener('DOMContentLoaded', function() {
+    const minInputs = document.querySelectorAll('[name^="system_requirements[minimum]"]');
+    
+    minInputs.forEach(input => {
+        input.addEventListener('blur', function() {
+            const fieldName = this.name.match(/\[([^\]]+)\]$/)[1];
+            const recInput = document.querySelector(`[name="system_requirements[recommended][${fieldName}]"]`);
+            
+            if (recInput && !recInput.value && this.value) {
+                // Auto-sugerir mejores especificaciones
+                let suggestion = this.value;
+                
+                if (fieldName === 'memory') {
+                    suggestion = suggestion.replace(/\d+/, (match) => parseInt(match) * 2);
+                } else if (fieldName === 'os') {
+                    suggestion = suggestion.replace('Windows 10', 'Windows 11');
+                } else if (fieldName === 'storage') {
+                    if (!suggestion.toLowerCase().includes('ssd')) {
+                        suggestion += ' SSD';
+                    }
+                }
+                
+                recInput.value = suggestion;
+            }
+        });
+    });
+});
+</script>
+
 <style>
 .admin-form-wrapper {
     display: flex;
@@ -119,7 +251,7 @@
     box-shadow: 0 4px 24px rgba(0,0,0,0.08);
     padding: 32px 36px 24px 36px;
     width: 100%;
-    max-width: 540px;
+    max-width: 800px; /* Aumentado para acomodar requerimientos */
 }
 .admin-form-title {
     font-size: 2rem;
@@ -164,18 +296,57 @@
     font-size: 0.95em;
     margin-top: 2px;
 }
+
+/* Estilos para sección de requerimientos */
+.requirements-section {
+    margin: 24px 0;
+    padding: 20px;
+    background: #f8fafc;
+    border-radius: 12px;
+    border: 2px solid #e2e8f0;
+}
+
+.requirements-title {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #2d3748;
+    margin-bottom: 20px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.requirements-group {
+    margin-bottom: 24px;
+    padding: 16px;
+    background: white;
+    border-radius: 8px;
+    border: 1px solid #e2e8f0;
+}
+
+.requirements-subtitle {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #4a5568;
+    margin-bottom: 16px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #e2e8f0;
+}
+
 .form-actions {
     display: flex;
     justify-content: flex-end;
     gap: 16px;
-    margin-top: 18px;
+    margin-top: 24px;
 }
 .btn.btn-primary {
     background: #6366f1;
     color: #fff;
     border: none;
     border-radius: 6px;
-    padding: 10px 22px;
+    padding: 12px 24px;
     font-weight: 600;
     cursor: pointer;
     transition: background 0.2s;
@@ -188,10 +359,11 @@
     color: #374151;
     border: none;
     border-radius: 6px;
-    padding: 10px 22px;
+    padding: 12px 24px;
     font-weight: 600;
     cursor: pointer;
     transition: background 0.2s;
+    text-decoration: none;
 }
 .btn.btn-secondary:hover {
     background: #d1d5db;
@@ -202,5 +374,6 @@
     width: 100%;
     box-sizing: border-box;
 }
+
 </style>
 @endsection

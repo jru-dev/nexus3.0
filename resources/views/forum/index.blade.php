@@ -480,7 +480,7 @@
 
         <!-- Lista de Posts -->
         <div class="posts-section">
-            <h2 class="section-title">📋 Discusiones Recientes</h2>
+            <h2 class="section-title"> Discusiones Recientes</h2>
 
             @if($posts->count() > 0)
                 @foreach($posts as $post)
@@ -526,7 +526,7 @@
                         <div class="post-stats">
                             <div class="post-interactions">
                                 <a href="{{ route('forum.show', $post->id) }}" class="interaction-btn">
-                                    💬 Ver Discusión
+                                     Ver Discusión
                                 </a>
                                 @auth
                                     @if($post->user_id === auth()->id() || auth()->user()->isAdmin())
@@ -536,7 +536,7 @@
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="interaction-btn" style="background: rgba(231, 76, 60, 0.2); border-color: #e74c3c;">
-                                                🗑️ Eliminar
+                                                Eliminar
                                             </button>
                                         </form>
                                     @endif

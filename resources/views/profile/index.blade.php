@@ -67,13 +67,13 @@
                 <!-- BOTONES DE ACCIÓN - EDITAR Y CERRAR SESIÓN -->
                 <div class="profile-actions">
                     <a href="{{ route('profile.edit.custom') }}" class="edit-profile-btn">
-                        ✏️ Editar Perfil
+                        Editar Perfil
                     </a>
                     
                     <form method="POST" action="{{ route('logout') }}" style="display: inline;">
                         @csrf
                         <button type="submit" class="logout-btn" onclick="return confirm('¿Estás seguro de que quieres cerrar sesión?')">
-                            🚪 Cerrar Sesión
+                            Cerrar Sesión
                         </button>
                     </form>
                 </div>
