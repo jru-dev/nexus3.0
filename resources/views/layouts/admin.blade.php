@@ -34,18 +34,6 @@
                     <span class="nav-icon">🎮</span>
                     <span class="nav-text">Gestionar Juegos</span>
                 </a>
-                <a href="{{ route('admin.users') }}" class="nav-item">
-                    <span class="nav-icon">👥</span>
-                    <span class="nav-text">Usuarios</span>
-                </a>
-                <a href="{{ route('admin.reviews') }}" class="nav-item">
-                    <span class="nav-icon">💬</span>
-                    <span class="nav-text">Reseñas</span>
-                </a>
-                <a href="{{ route('admin.categories') }}" class="nav-item">
-                    <span class="nav-icon">📂</span>
-                    <span class="nav-text">Categorías</span>
-                </a>
             </nav>
         </aside>
         <main class="admin-main">

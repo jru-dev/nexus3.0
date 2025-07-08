@@ -70,6 +70,8 @@ class AdminDashboardController extends Controller
      */
     public function storeGame(Request $request)
     {
+        // Mostrar los datos recibidos para depuración
+        // dd($request->all());
         $request->validate([
             'title' => 'required|string|max:255|unique:games,title',
             'description' => 'required|string|max:2000',

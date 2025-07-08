@@ -29,9 +29,6 @@
         <!-- Header de la página -->
         <div class="page-header">
             <h1 class="page-title">Gestión de Juegos</h1>
-            <button class="btn-primary" onclick="alert('Función de agregar juego en desarrollo')">
-                ➕ Agregar Nuevo Juego
-            </button>
         </div>
 
         <!-- Lista de juegos -->
@@ -45,9 +42,6 @@
                                     <div class="game-title">{{ $game->title }}</div>
                                     <div class="game-developer">{{ $game->developer }}</div>
                                 </div>
-                                <span class="game-status {{ $game->is_active ? 'status-active' : 'status-inactive' }}">
-                                    {{ $game->is_active ? 'Activo' : 'Oculto' }}
-                                </span>
                             </div>
                             
                             <div class="game-info">
@@ -63,15 +57,9 @@
                             </div>
                             
                             <div class="game-actions">
-                                <button class="btn-sm btn-edit" onclick="alert('Editar {{ $game->title }}')">
+                                <a href="{{ route('admin.games.edit', $game->id) }}" class="btn-sm btn-edit">
                                     ✏️ Editar
-                                </button>
-                                <button class="btn-sm btn-toggle" onclick="toggleGame({{ $game->id }}, '{{ $game->title }}', {{ $game->is_active ? 'true' : 'false' }})">
-                                    {{ $game->is_active ? '👁️ Ocultar' : '👁️‍🗨️ Mostrar' }}
-                                </button>
-                                <button class="btn-sm btn-delete" onclick="deleteGame({{ $game->id }}, '{{ $game->title }}')">
-                                    🗑️ Eliminar
-                                </button>
+                                </a>
                             </div>
                         </div>
                     @endforeach

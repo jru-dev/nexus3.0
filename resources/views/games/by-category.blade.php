@@ -145,7 +145,6 @@
                                 
                                 <div class="price-info">
                                     <span class="current-price">S/ {{ number_format($game->price, 2) }}</span>
-                                    <span class="original-price">S/ {{ number_format($game->price * 1.25, 2) }}</span>
                                 </div>
                             </div>
                         </div>

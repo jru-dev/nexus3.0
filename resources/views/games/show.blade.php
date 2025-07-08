@@ -77,7 +77,7 @@
                 <!-- Screenshots Debajo -->
                 <div class="screenshots-gallery">
                     @if($game->screenshots && count($game->screenshots) > 0)
-                        @foreach(array_slice($game->screenshots, 0, 4) as $screenshot)
+                        @foreach($game->screenshots as $screenshot)
                             <div class="screenshot-thumb">
                                 <img src="{{ asset($screenshot) }}" alt="Screenshot" class="screenshot-image">
                             </div>
@@ -295,28 +295,7 @@
 
             <!-- Lado Derecho - Especificaciones y Más -->
             <div class="sidebar-info">
-                <!-- Especificaciones -->
-                <div class="sidebar-section">
-                    <h4 class="sidebar-title">Especificaciones</h4>
-                    <div class="spec-list">
-                        <div class="spec-item">
-                            <span class="spec-icon">👤</span>
-                            <span class="spec-text">Un jugador</span>
-                        </div>
-                        <div class="spec-item">
-                            <span class="spec-icon">👥</span>
-                            <span class="spec-text">Multijugador masivo</span>
-                        </div>
-                        <div class="spec-item">
-                            <span class="spec-icon">🌐</span>
-                            <span class="spec-text">JvJ en línea</span>
-                        </div>
-                        <div class="spec-item">
-                            <span class="spec-icon">⭐</span>
-                            <span class="spec-text">Cooperativo en línea</span>
-                        </div>
-                    </div>
-                </div>
+                
 
                 <!-- Requerimientos del Sistema -->
                 <div class="sidebar-section">
